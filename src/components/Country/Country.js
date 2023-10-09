@@ -4,34 +4,35 @@ import { useParams } from 'react-router-dom';
 const Country = () => {
     const {countryName} = useParams();
     const [country, setCountry] = useState({})
+    const [isloading, setIsLoading] = useState(true)
+    // use dataLoading - data load hote late hole jate error na ase.
 
     useEffect(() => {
         const url = `https://restcountries.com/v3.1/name/${countryName}`;
         fetch(url)
         .then(res => res.json())
-        .then(data => setCountry(data))
+        .then(data => {
+            setCountry(data[0]);
+            setIsLoading(false)
+        })
 
     }, [countryName])
 
-    // useEffect(() => {
-    //     async function loadData() {
-    //         const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
-    //         const data = await response.json();
-    //         return data;
-    //     }
+    if(isloading) return <p>Loading...</p>
 
-    //     loadData().then(data => {
-    //         setCountry(data);
-    //     })
-
-    // },[countryName])
-    
-
-    console.log(country)
+    const {name, capital, region, area, population, continents} = country;
+    const {common} = name;
+    const {name:{official}} = country;
 
     return(
         <div>
-            <h1>Country Capital: {[country.capital]} </h1>
+            <p><b>Country Name Common:</b> {common}</p>
+            <p><b>Country Name Official:</b> {official}</p>
+            <p><b>Country capital: </b>{capital}</p>
+            <p><b>Country region: </b>{region}</p>
+            <p><b>Country area: </b>{area}</p>
+            <p><b>Country population: </b>{population}</p>
+            <p><b>Country continents: </b>{continents}</p>
         </div>
     )
 }
