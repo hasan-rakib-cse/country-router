@@ -27,7 +27,11 @@ const Country = () => {
     // get the value of currency. 
     const {name, symbol} = country.currencies[Object.keys(country.currencies)[0]]
 
+    // const {name, symbol} = country.currencies[Object.keys(country.currencies)]
+
     //   const name = country.currencies ? `${ country.currencies[Object.keys(country.currencies)[0]].name }` : "" ;
+
+    // const name = country.currencies[Object.keys(country.currencies)].name
 
     return(
         <div>
